@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		BBDE015A2E94820F00753D3E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBDE01402E94820E00753D3E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BBDE01472E94820E00753D3E;
+			remoteInfo = "CMU Softball Pitch Tracking App";
+		};
+		BBDE01642E94820F00753D3E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BBDE01402E94820E00753D3E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BBDE01472E94820E00753D3E;
+			remoteInfo = "CMU Softball Pitch Tracking App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BBDE01482E94820E00753D3E /* CMU Softball Pitch Tracking App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CMU Softball Pitch Tracking App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBDE01592E94820F00753D3E /* CMU Softball Pitch Tracking AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CMU Softball Pitch Tracking AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBDE01632E94820F00753D3E /* CMU Softball Pitch Tracking AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CMU Softball Pitch Tracking AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BBDE016B2E94820F00753D3E /* Exceptions for "CMU Softball Pitch Tracking App" folder in "CMU Softball Pitch Tracking App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BBDE01472E94820E00753D3E /* CMU Softball Pitch Tracking App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		BBDE014A2E94820E00753D3E /* CMU Softball Pitch Tracking App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BBDE016B2E94820F00753D3E /* Exceptions for "CMU Softball Pitch Tracking App" folder in "CMU Softball Pitch Tracking App" target */,
+			);
+			path = "CMU Softball Pitch Tracking App";
+			sourceTree = "<group>";
+		};
+		BBDE015C2E94820F00753D3E /* CMU Softball Pitch Tracking AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "CMU Softball Pitch Tracking AppTests";
+			sourceTree = "<group>";
+		};
+		BBDE01662E94820F00753D3E /* CMU Softball Pitch Tracking AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "CMU Softball Pitch Tracking AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BBDE01452E94820E00753D3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBDE01562E94820F00753D3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBDE01602E94820F00753D3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BBDE013F2E94820E00753D3E = {
+			isa = PBXGroup;
+			children = (
+				BBDE014A2E94820E00753D3E /* CMU Softball Pitch Tracking App */,
+				BBDE015C2E94820F00753D3E /* CMU Softball Pitch Tracking AppTests */,
+				BBDE01662E94820F00753D3E /* CMU Softball Pitch Tracking AppUITests */,
+				BBDE01492E94820E00753D3E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BBDE01492E94820E00753D3E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BBDE01482E94820E00753D3E /* CMU Softball Pitch Tracking App.app */,
+				BBDE01592E94820F00753D3E /* CMU Softball Pitch Tracking AppTests.xctest */,
+				BBDE01632E94820F00753D3E /* CMU Softball Pitch Tracking AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BBDE01472E94820E00753D3E /* CMU Softball Pitch Tracking App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBDE016C2E94820F00753D3E /* Build configuration list for PBXNativeTarget "CMU Softball Pitch Tracking App" */;
+			buildPhases = (
+				BBDE01442E94820E00753D3E /* Sources */,
+				BBDE01452E94820E00753D3E /* Frameworks */,
+				BBDE01462E94820E00753D3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BBDE014A2E94820E00753D3E /* CMU Softball Pitch Tracking App */,
+			);
+			name = "CMU Softball Pitch Tracking App";
+			packageProductDependencies = (
+			);
+			productName = "CMU Softball Pitch Tracking App";
+			productReference = BBDE01482E94820E00753D3E /* CMU Softball Pitch Tracking App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BBDE01582E94820F00753D3E /* CMU Softball Pitch Tracking AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBDE01712E94820F00753D3E /* Build configuration list for PBXNativeTarget "CMU Softball Pitch Tracking AppTests" */;
+			buildPhases = (
+				BBDE01552E94820F00753D3E /* Sources */,
+				BBDE01562E94820F00753D3E /* Frameworks */,
+				BBDE01572E94820F00753D3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BBDE015B2E94820F00753D3E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BBDE015C2E94820F00753D3E /* CMU Softball Pitch Tracking AppTests */,
+			);
+			name = "CMU Softball Pitch Tracking AppTests";
+			packageProductDependencies = (
+			);
+			productName = "CMU Softball Pitch Tracking AppTests";
+			productReference = BBDE01592E94820F00753D3E /* CMU Softball Pitch Tracking AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BBDE01622E94820F00753D3E /* CMU Softball Pitch Tracking AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBDE01742E94820F00753D3E /* Build configuration list for PBXNativeTarget "CMU Softball Pitch Tracking AppUITests" */;
+			buildPhases = (
+				BBDE015F2E94820F00753D3E /* Sources */,
+				BBDE01602E94820F00753D3E /* Frameworks */,
+				BBDE01612E94820F00753D3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BBDE01652E94820F00753D3E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BBDE01662E94820F00753D3E /* CMU Softball Pitch Tracking AppUITests */,
+			);
+			name = "CMU Softball Pitch Tracking AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "CMU Softball Pitch Tracking AppUITests";
+			productReference = BBDE01632E94820F00753D3E /* CMU Softball Pitch Tracking AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BBDE01402E94820E00753D3E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					BBDE01472E94820E00753D3E = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					BBDE01582E94820F00753D3E = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = BBDE01472E94820E00753D3E;
+					};
+					BBDE01622E94820F00753D3E = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = BBDE01472E94820E00753D3E;
+					};
+				};
+			};
+			buildConfigurationList = BBDE01432E94820E00753D3E /* Build configuration list for PBXProject "CMU Softball Pitch Tracking App" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BBDE013F2E94820E00753D3E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = BBDE01492E94820E00753D3E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BBDE01472E94820E00753D3E /* CMU Softball Pitch Tracking App */,
+				BBDE01582E94820F00753D3E /* CMU Softball Pitch Tracking AppTests */,
+				BBDE01622E94820F00753D3E /* CMU Softball Pitch Tracking AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BBDE01462E94820E00753D3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBDE01572E94820F00753D3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBDE01612E94820F00753D3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BBDE01442E94820E00753D3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBDE01552E94820F00753D3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBDE015F2E94820F00753D3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BBDE015B2E94820F00753D3E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BBDE01472E94820E00753D3E /* CMU Softball Pitch Tracking App */;
+			targetProxy = BBDE015A2E94820F00753D3E /* PBXContainerItemProxy */;
+		};
+		BBDE01652E94820F00753D3E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BBDE01472E94820E00753D3E /* CMU Softball Pitch Tracking App */;
+			targetProxy = BBDE01642E94820F00753D3E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		BBDE016D2E94820F00753D3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "CMU Softball Pitch Tracking App/CMU_Softball_Pitch_Tracking_App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78WNZX87WC;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CMU Softball Pitch Tracking App/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "adlewisCMU.CMU-Softball-Pitch-Tracking-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BBDE016E2E94820F00753D3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "CMU Softball Pitch Tracking App/CMU_Softball_Pitch_Tracking_App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78WNZX87WC;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CMU Softball Pitch Tracking App/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "adlewisCMU.CMU-Softball-Pitch-Tracking-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BBDE016F2E94820F00753D3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 78WNZX87WC;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BBDE01702E94820F00753D3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 78WNZX87WC;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BBDE01722E94820F00753D3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78WNZX87WC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "adlewisCMU.CMU-Softball-Pitch-Tracking-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CMU Softball Pitch Tracking App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CMU Softball Pitch Tracking App";
+			};
+			name = Debug;
+		};
+		BBDE01732E94820F00753D3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78WNZX87WC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "adlewisCMU.CMU-Softball-Pitch-Tracking-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CMU Softball Pitch Tracking App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CMU Softball Pitch Tracking App";
+			};
+			name = Release;
+		};
+		BBDE01752E94820F00753D3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78WNZX87WC;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "adlewisCMU.CMU-Softball-Pitch-Tracking-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "CMU Softball Pitch Tracking App";
+			};
+			name = Debug;
+		};
+		BBDE01762E94820F00753D3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78WNZX87WC;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "adlewisCMU.CMU-Softball-Pitch-Tracking-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "CMU Softball Pitch Tracking App";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BBDE01432E94820E00753D3E /* Build configuration list for PBXProject "CMU Softball Pitch Tracking App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBDE016F2E94820F00753D3E /* Debug */,
+				BBDE01702E94820F00753D3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBDE016C2E94820F00753D3E /* Build configuration list for PBXNativeTarget "CMU Softball Pitch Tracking App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBDE016D2E94820F00753D3E /* Debug */,
+				BBDE016E2E94820F00753D3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBDE01712E94820F00753D3E /* Build configuration list for PBXNativeTarget "CMU Softball Pitch Tracking AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBDE01722E94820F00753D3E /* Debug */,
+				BBDE01732E94820F00753D3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBDE01742E94820F00753D3E /* Build configuration list for PBXNativeTarget "CMU Softball Pitch Tracking AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBDE01752E94820F00753D3E /* Debug */,
+				BBDE01762E94820F00753D3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BBDE01402E94820E00753D3E /* Project object */;
+}
