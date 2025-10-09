@@ -1,3 +1,5 @@
+import Foundation
+
 struct Pitch: Identifiable, Codable {
     let id = UUID()
     

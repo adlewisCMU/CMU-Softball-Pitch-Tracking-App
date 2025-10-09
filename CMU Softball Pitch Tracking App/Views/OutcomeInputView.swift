@@ -8,10 +8,11 @@ struct OutcomeInputView: View {
     var onSubmit: () -> Void
 
     @State private var showValidationAlert = false
+    @State private var navigateToSwingResult = false
+    @State private var navigateToNoSwingResult = false
 
     var body: some View {
         HStack(spacing: 40) {
-            // Actual Pitch Zone selector
             VStack {
                 Text("Actual Pitch Zone")
                     .font(.headline)
@@ -22,14 +23,12 @@ struct OutcomeInputView: View {
             }
 
             VStack(spacing: 40) {
-                // Balls off plate selector
                 VStack(alignment: .leading) {
                     Text("Balls Off Plate")
                         .font(.headline)
                     ActualBallsOffPlateSelector(selectedOffset: $actualBallsOffPlate)
                 }
 
-                // Outcome selector
                 VStack(alignment: .leading) {
                     Text("Pitch Outcome")
                         .font(.headline)
@@ -38,12 +37,20 @@ struct OutcomeInputView: View {
 
                 Spacer()
 
-                // Submit button with validation
                 HStack {
                     Spacer()
                     Button(action: {
                         if isValid() {
-                            onSubmit()
+                            switch outcome {
+                            case .swing:
+                                navigateToSwingResult = true
+                            case .noSwing:
+                                navigateToNoSwingResult = true
+                            case .hbp:
+                                onSubmit()
+                            case .none:
+                                break
+                            }
                         } else {
                             showValidationAlert = true
                         }
@@ -66,6 +73,26 @@ struct OutcomeInputView: View {
         } message: {
             Text("Please complete all fields before submitting.")
         }
+        .background(
+            Group {
+                NavigationLink(
+                    destination: SwingResultView(
+                        actualPitchZone: actualPitchZone ?? "",
+                        actualBallsOffPlate: actualBallsOffPlate ?? 0
+                    ),
+                    isActive: $navigateToSwingResult,
+                    label: { EmptyView() }
+                )
+                NavigationLink(
+                    destination: NoSwingResultView(
+                        actualPitchZone: actualPitchZone ?? "",
+                        actualBallsOffPlate: actualBallsOffPlate ?? 0
+                    ),
+                    isActive: $navigateToNoSwingResult,
+                    label: { EmptyView() }
+                )
+            }
+        )
     }
 
     private func isValid() -> Bool {
