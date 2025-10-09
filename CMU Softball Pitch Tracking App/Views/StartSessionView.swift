@@ -2,9 +2,10 @@ import SwiftUI
 
 struct StartSessionView: View {
     @ObservedObject var session: Session
+
     @State private var pitcherName = ""
     @State private var opponentName = ""
-    @State private var navigateToCallInput = false
+    @State private var navigateToTracking = false
 
     var body: some View {
         NavigationStack {
@@ -30,20 +31,15 @@ struct StartSessionView: View {
                 Spacer()
 
                 NavigationLink(
-                    destination: CallInputView(
-                        calledPitchZone: .constant(nil),
-                        pitchType: .constant("Fastball"),
-                        calledBallsOffPlate: .constant(nil),
-                        session: session
-                    ),
-                    isActive: $navigateToCallInput
+                    destination: PitchTrackingView(session: session),
+                    isActive: $navigateToTracking
                 ) {
                     EmptyView()
                 }
 
                 Button(action: {
                     session.startSession(pitcher: pitcherName, opponent: opponentName)
-                    navigateToCallInput = true
+                    navigateToTracking = true
                 }) {
                     Text("Start Session")
                         .font(.title2.bold())
