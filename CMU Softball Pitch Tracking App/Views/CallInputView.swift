@@ -7,6 +7,8 @@ struct CallInputView: View {
 
     let pitchTypes = ["Fastball", "Drop", "Rise", "Curve", "Screw", "Change Up", "Drop Curve"]
 
+    @State private var showValidationAlert = false
+
     var body: some View {
         HStack(spacing: 40) {
             // Left: Strike Zone
@@ -33,9 +35,42 @@ struct CallInputView: View {
                         .font(.headline)
                     BallsOffPlateSelector(selectedOffset: $calledBallsOffPlate)
                 }
+
+                Spacer()
+
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        if isValid() {
+                            onSubmit()
+                        } else {
+                            showValidationAlert = true
+                        }
+                    }) {
+                        Text("Submit")
+                            .font(.title2.bold())
+                            .padding()
+                            .frame(width: 160)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
+                    .padding(.top, 20)
+                }
             }
         }
         .padding()
         .navigationTitle("Call Pitch")
+        .alert("Missing Input", isPresented: $showValidationAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Please select a pitch zone, pitch type, and balls off plate value.")
+        }
+    }
+
+    private func isValid() -> Bool {
+        return calledPitchZone != nil &&
+               calledBallsOffPlate != nil &&
+               !pitchType.isEmpty
     }
 }

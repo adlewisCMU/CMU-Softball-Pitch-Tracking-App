@@ -1,7 +1,7 @@
 import Foundation
 
-class Session {
-    private(set) var pitches: [Pitch] = []
+class Session: ObservableObject {
+    @Published private(set) var pitches: [Pitch] = []
     private var overallPitchNum = 0
     private var batterNum = 0
     private var pitcherStats: [String: (pitchCount: Int, batterCount: Int)] = [:]
