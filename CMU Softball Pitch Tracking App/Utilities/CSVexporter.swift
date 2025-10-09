@@ -26,7 +26,6 @@ func saveCSVToTempFile(csvString: String, fileName: String? = nil, opponentName:
     }
 }
 
-
 func shareCSVFile(from viewController: UIViewController, csvString: String, opponentName: String?) {
     guard let fileURL = saveCSVToTempFile(csvString: csvString, opponentName: opponentName) else {
         print("Could not save CSV to temp file.")
