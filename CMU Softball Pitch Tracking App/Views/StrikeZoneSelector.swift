@@ -6,12 +6,12 @@ struct StrikeZoneSelector: View {
     var body: some View {
         VStack(spacing: 4) {
             HStack(spacing: 4) {
-                zoneButton(1)
-                zoneButton(2)
-            }
-            HStack(spacing: 4) {
                 zoneButton(3)
                 zoneButton(4)
+            }
+            HStack(spacing: 4) {
+                zoneButton(1)
+                zoneButton(2)
             }
         }
         .frame(width: 200, height: 200)
@@ -36,3 +36,4 @@ struct StrikeZoneSelector: View {
         }
     }
 }
+
