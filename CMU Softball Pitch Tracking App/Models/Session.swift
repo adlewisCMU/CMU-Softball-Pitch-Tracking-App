@@ -2,6 +2,8 @@ import Foundation
 
 class Session: ObservableObject {
     @Published private(set) var pitches: [Pitch] = []
+    @Published var pitcherName: String = ""
+    @Published var opponentName: String = "Practice"
     private var overallPitchNum = 0
     private var batterNum = 0
     private var pitcherStats: [String: (pitchCount: Int, batterCount: Int)] = [:]
@@ -47,7 +49,7 @@ class Session: ObservableObject {
 
         let pitch = Pitch(
             pitchNum: overallPitchNum,
-            pitcher: pitcher,
+            pitcher: self.pitcherName,
             pitcherPitchNum: pitcherPitchNum,
             batterNum: batterNum,
             pitcherBatterNum: pitcherBatterNum,
@@ -74,5 +76,53 @@ class Session: ObservableObject {
         overallPitchNum = 0
         batterNum = 0
         pitcherStats.removeAll()
+    }
+
+    func startSession(pitcher: String, opponent: String?) {
+        self.pitcherName = pitcher
+        self.opponentName = opponent?.isEmpty == false ? opponent! : "Practice"
+        reset()
+    }
+
+    func exportCSV(from viewController: UIViewController, opponentName: String? = nil) {
+        let csv = generateCSV()
+        shareCSVFile(from: viewController, csvString: csv, opponentName: opponentName)
+    }
+
+    private func generateCSV() -> String {
+        var rows: [String] = []
+        let header = [
+            "pitchNum", "pitcher", "pitcherPitchNum", "batterNum", "pitcherBatterNum",
+            "pitchCount", "calledPitchZone", "pitchType", "calledBallsOffPlate",
+            "actualPitchZone", "actualBallsOffPlate",
+            "isStrike", "isHBP", "didSwing", "madeContact", "isHit", "isOut", "isError"
+        ]
+        rows.append(header.joined(separator: ","))
+
+        for pitch in pitches {
+            let row = [
+                String(pitch.pitchNum),
+                pitch.pitcher,
+                String(pitch.pitcherPitchNum),
+                String(pitch.batterNum),
+                String(pitch.pitcherBatterNum),
+                pitch.pitchCount,
+                String(pitch.calledPitchZone),
+                pitch.pitchType,
+                String(pitch.calledBallsOffPlate),
+                pitch.actualPitchZone,
+                String(pitch.actualBallsOffPlate),
+                String(pitch.isStrike),
+                String(pitch.isHBP),
+                String(pitch.didSwing),
+                String(pitch.madeContact),
+                String(pitch.isHit),
+                String(pitch.isOut),
+                String(pitch.isError)
+            ]
+            rows.append(row.joined(separator: ","))
+        }
+
+        return rows.joined(separator: "\n")
     }
 }

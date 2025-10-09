@@ -58,6 +58,25 @@ struct CallInputView: View {
                     .padding(.top, 20)
                 }
             }
+
+            // Bottom-left: End Session Button
+            Button(action: {
+                showExitAlert = true
+            }) {
+                Text("End Session")
+                    .font(.body)
+                    .padding(12)
+                    .foregroundColor(.red)
+            }
+            .alert("End Session?", isPresented: $showExitAlert) {
+                Button("Export & End", role: .destructive) {
+                    session.exportCSV()
+                    session.reset()
+                }
+                Button("Cancel", role: .cancel) { }
+            }
+            .padding(.leading, 20)
+            .padding(.bottom, 20)
         }
         .padding()
         .navigationTitle("Call Pitch")

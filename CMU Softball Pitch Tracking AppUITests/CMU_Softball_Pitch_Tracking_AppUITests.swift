@@ -1,8 +1,3 @@
-//
-//  CMU_Softball_Pitch_Tracking_AppUITests.swift
-//  CMU Softball Pitch Tracking AppUITests
-//
-
 import XCTest
 
 final class CMU_Softball_Pitch_Tracking_AppUITests: XCTestCase {

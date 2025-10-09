@@ -1,10 +1,3 @@
-//
-//  CMU_Softball_Pitch_Tracking_AppUITestsLaunchTests.swift
-//  CMU Softball Pitch Tracking AppUITests
-//
-//  Created by Alex David Lewis on 10/6/25.
-//
-
 import XCTest
 
 final class CMU_Softball_Pitch_Tracking_AppUITestsLaunchTests: XCTestCase {
