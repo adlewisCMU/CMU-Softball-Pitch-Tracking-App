@@ -17,7 +17,7 @@ struct Pitch: Identifiable, Codable {
     var calledBallsOffPlate: Int  // 1, 2
     
     // actual outcome
-    var actualPitchZone: Int  // 1-9
+    var actualPitchZone: String  // can be 0 through 4, but can also be "Zone-Zone" to indicate between zones
     var actualBallsOffPlate: Int  // 1, 2, 3
     var isStrike: Bool
     var isHBP: Bool

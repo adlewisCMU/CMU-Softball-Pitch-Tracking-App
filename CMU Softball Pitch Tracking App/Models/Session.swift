@@ -12,7 +12,7 @@ class Session: ObservableObject {
         calledPitchZone: Int,
         pitchType: String,
         calledBallsOffPlate: Int,
-        actualPitchZone: Int,
+        actualPitchZone: String,
         actualBallsOffPlate: Int,
         isStrike: Bool,
         isHBP: Bool,

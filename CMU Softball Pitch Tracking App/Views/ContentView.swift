@@ -1,8 +1,3 @@
-//
-//  ContentView.swift
-//  CMU Softball Pitch Tracking App
-//
-
 import SwiftUI
 import SwiftData
 
