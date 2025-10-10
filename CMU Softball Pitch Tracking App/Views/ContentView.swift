@@ -1,12 +1,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var session = Session()
+    
     var body: some View {
-        PitchTrackingView()
+        PitchTrackingView(session: session)
     }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }

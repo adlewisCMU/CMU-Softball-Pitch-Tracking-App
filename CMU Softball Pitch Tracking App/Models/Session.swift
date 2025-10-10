@@ -1,4 +1,6 @@
 import Foundation
+import SwiftUI
+import Combine
 
 class Session: ObservableObject {
     @Published private(set) var pitches: [Pitch] = []

@@ -4,10 +4,15 @@ struct CallInputView: View {
     @Binding var calledPitchZone: Int?
     @Binding var pitchType: String
     @Binding var calledBallsOffPlate: Int?
+    
+    let session: Session
+    let onSubmit: () -> Void
+    let onEndSession: () -> Void
 
     let pitchTypes = ["Fastball", "Drop", "Rise", "Curve", "Screw", "Change Up", "Drop Curve"]
 
     @State private var showValidationAlert = false
+    @State private var showExitAlert = false
 
     var body: some View {
         HStack(spacing: 40) {
@@ -70,8 +75,12 @@ struct CallInputView: View {
             }
             .alert("End Session?", isPresented: $showExitAlert) {
                 Button("Export & End", role: .destructive) {
-                    session.exportCSV()
-                    session.reset()
+                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                        if let viewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+                            session.exportCSV(from: viewController)
+                            session.reset()
+                        }
+                    }
                 }
                 Button("Cancel", role: .cancel) { }
             }

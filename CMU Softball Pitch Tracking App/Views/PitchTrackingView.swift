@@ -26,9 +26,14 @@ struct PitchTrackingView: View {
                     path.append(Screen.outcome)
                 },
                 onEndSession: {
-                    session.exportCSV()
-                    session.reset()
-                    path = NavigationPath() // Optional: reset to restart tracking
+                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                        if let viewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+                            // Now pass the viewController to the exportCSV function
+                            session.exportCSV(from: viewController)
+                            session.reset()
+                            path = NavigationPath() // Optional: reset to restart tracking
+                        }
+                    }
                 }
             )
             .navigationDestination(for: Screen.self) { screen in
@@ -47,7 +52,7 @@ struct PitchTrackingView: View {
                         calledPitchZone: calledPitchZone ?? 0,
                         pitchType: pitchType,
                         calledBallsOffPlate: calledBallsOffPlate ?? 0,
-                        pitchCount: session.pitchCount,
+                        pitchCount: $session.pitchCount,
                         isNewBatter: false
                     )
                 case .noSwingResult:
@@ -81,7 +86,7 @@ struct PitchTrackingView: View {
         case .hbp:
             session.addPitch(
                 pitcher: session.pitcherName,
-                pitchCount: session.pitchCount,
+                pitchCount: $session.pitchCount,
                 calledPitchZone: calledPitchZone ?? 0,
                 pitchType: pitchType,
                 calledBallsOffPlate: calledBallsOffPlate ?? 0,

@@ -30,11 +30,13 @@ struct StartSessionView: View {
 
                 Spacer()
 
-                NavigationLink(
-                    destination: PitchTrackingView(session: session),
-                    isActive: $navigateToTracking
-                ) {
+                NavigationLink(value: navigateToTracking) {
                     EmptyView()
+                }
+                .navigationDestination(for: Bool.self) { value in
+                    if value {
+                        PitchTrackingView(session: session)
+                    }
                 }
 
                 Button(action: {
