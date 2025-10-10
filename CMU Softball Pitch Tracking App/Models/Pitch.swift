@@ -29,31 +29,3 @@ struct Pitch: Identifiable, Codable {
     var isOut: Bool
     var isError: Bool
 }
-
-func updateCount(currentCount: String, call: String) -> String {
-    let parts: [String.SubSequence] = currentCount.split(separator: "-")
-    guard parts.count == 2,
-          var balls: Int = Int(parts[0]),
-          var strikes: Int = Int(parts[1]) else {
-        return currentCount
-    }
-
-    switch call.lowercased() {
-        case "ball":
-            balls += 1
-        case "strike":
-            strikes += 1
-        case "foul":
-            if strikes < 2 {
-                strikes += 1
-            }
-        default:
-            print("Invalid pitch call: \(call)")
-    }
-
-    return "\(balls)-\(strikes)"
-}
-
-func resetCount() -> String {
-    return "0-0"
-}

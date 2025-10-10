@@ -10,30 +10,30 @@ class Session: ObservableObject {
     private var batterNum = 0
     private var pitcherStats: [String: (pitchCount: Int, batterCount: Int)] = [:]
 
+    private var currentStrikes = 0
+    private var currentBalls = 0
+
     func addPitch(
+        resultType: PitchResultType,
         pitcher: String,
-        pitchCount: String,
         calledPitchZone: Int,
         pitchType: String,
         calledBallsOffPlate: Int,
         actualPitchZone: String,
-        actualBallsOffPlate: Int,
-        isStrike: Bool,
-        isHBP: Bool,
-        didSwing: Bool,
-        madeContact: Bool,
-        isHit: Bool,
-        isOut: Bool,
-        isError: Bool,
-        newBatter: Bool
+        actualBallsOffPlate: Int
     ) {
-        overallPitchNum += 1
+        let outcome = resultType.outcome
+        updatePitchCount(from: resultType)
+        let pitchCount = currentPitchCountString()
+        let newBatter = shouldResetCount(from: resultType)
 
         if newBatter {
+            resetPitchCount()
             batterNum += 1
         }
 
-        // Initialize or update pitcher stats
+        // Track pitch and batter numbers for pitcher
+        overallPitchNum += 1
         var pitcherPitchNum = 1
         var pitcherBatterNum = newBatter ? 1 : 0
 
@@ -61,13 +61,13 @@ class Session: ObservableObject {
             calledBallsOffPlate: calledBallsOffPlate,
             actualPitchZone: actualPitchZone,
             actualBallsOffPlate: actualBallsOffPlate,
-            isStrike: isStrike,
-            isHBP: isHBP,
-            didSwing: didSwing,
-            madeContact: madeContact,
-            isHit: isHit,
-            isOut: isOut,
-            isError: isError
+            isStrike: outcome.isStrike,
+            isHBP: outcome.isHBP,
+            didSwing: outcome.didSwing,
+            madeContact: outcome.madeContact,
+            isHit: outcome.isHit,
+            isOut: outcome.isOut,
+            isError: outcome.isError
         )
 
         pitches.append(pitch)
@@ -89,6 +89,45 @@ class Session: ObservableObject {
     func exportCSV(from viewController: UIViewController, opponentName: String? = nil) {
         let csv = generateCSV()
         shareCSVFile(from: viewController, csvString: csv, opponentName: opponentName)
+    }
+
+    func currentPitchCountString() -> String {
+        return "\(currentBalls)-\(currentStrikes)"
+    }
+
+    private func resetPitchCount() {
+        currentBalls = 0
+        currentStrikes = 0
+    }
+
+    private func updatePitchCount(from resultType: PitchResultType) {
+        switch resultType {
+        case .swingStrike, .noSwingStrike:
+            if currentStrikes < 2 {
+                currentStrikes += 1
+            }
+        case .swingFoul:
+            if currentStrikes < 2 {
+                currentStrikes += 1
+            }
+        case .noSwingBall:
+            currentBalls += 1
+        default:
+            break
+        }
+    }
+
+    private func shouldResetCount(from resultType: PitchResultType) -> Bool {
+        switch resultType {
+        case .hbp, .swingHit, .swingOut, .swingError:
+            return true
+        case .noSwingBall:
+            return currentBalls >= 4
+        case .swingStrike, .noSwingStrike, .swingFoul:
+            return currentStrikes >= 3
+        default:
+            return false
+        }
     }
 
     private func generateCSV() -> String {
