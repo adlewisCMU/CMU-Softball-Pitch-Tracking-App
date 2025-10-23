@@ -28,10 +28,9 @@ struct PitchTrackingView: View {
                 onEndSession: {
                     if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                         if let viewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
-                            // Now pass the viewController to the exportCSV function
                             session.exportCSV(from: viewController)
                             session.reset()
-                            path = NavigationPath() // Optional: reset to restart tracking
+                            path = NavigationPath()
                         }
                     }
                 }
@@ -43,6 +42,11 @@ struct PitchTrackingView: View {
                         actualPitchZone: $actualPitchZone,
                         actualBallsOffPlate: $actualBallsOffPlate,
                         outcome: $outcome,
+                        calledPitchZone: calledPitchZone ?? 0,
+                        pitchType: pitchType,
+                        calledBallsOffPlate: calledBallsOffPlate ?? 0,
+                        pitchCount: session.currentPitchCountString(),
+                        isNewBatter: false,
                         onSubmit: handleOutcomeSubmit
                     )
                 case .swingResult:
@@ -52,7 +56,7 @@ struct PitchTrackingView: View {
                         calledPitchZone: calledPitchZone ?? 0,
                         pitchType: pitchType,
                         calledBallsOffPlate: calledBallsOffPlate ?? 0,
-                        pitchCount: $session.pitchCount,
+                        pitchCount: session.currentPitchCountString(),
                         isNewBatter: false
                     )
                 case .noSwingResult:
@@ -62,7 +66,7 @@ struct PitchTrackingView: View {
                         calledPitchZone: calledPitchZone ?? 0,
                         pitchType: pitchType,
                         calledBallsOffPlate: calledBallsOffPlate ?? 0,
-                        pitchCount: session.pitchCount,
+                        pitchCount: session.currentPitchCountString(),
                         isNewBatter: false
                     )
                 }
@@ -85,26 +89,19 @@ struct PitchTrackingView: View {
             path.append(Screen.noSwingResult)
         case .hbp:
             session.addPitch(
+                resultType: .hbp,
                 pitcher: session.pitcherName,
-                pitchCount: $session.pitchCount,
                 calledPitchZone: calledPitchZone ?? 0,
                 pitchType: pitchType,
                 calledBallsOffPlate: calledBallsOffPlate ?? 0,
                 actualPitchZone: actualPitchZone ?? "0",
-                actualBallsOffPlate: actualBallsOffPlate ?? 0,
-                isStrike: false,
-                isHBP: true,
-                didSwing: false,
-                madeContact: false,
-                isHit: false,
-                isOut: false,
-                isError: false,
-                newBatter: false
+                actualBallsOffPlate: actualBallsOffPlate ?? 0
             )
             resetPitchInput()
             path = NavigationPath() // Return to CallInputView
         }
     }
+
 
     private func resetPitchInput() {
         calledPitchZone = nil

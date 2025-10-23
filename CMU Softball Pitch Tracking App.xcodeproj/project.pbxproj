@@ -33,28 +33,18 @@
 		BB758D712E988F2D0000BDC6 /* Exceptions for "CMU Softball Pitch Tracking App" folder in "CMU Softball Pitch Tracking App" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				CMU_Softball_Pitch_Tracking_App.entitlements.xml,
 				Resources/Info.plist,
 			);
 			target = BBDE01472E94820E00753D3E /* CMU Softball Pitch Tracking App */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		BB758D722E9890AD0000BDC6 /* Exceptions for "CMU Softball Pitch Tracking App" folder in "Copy Bundle Resources" phase from "CMU Softball Pitch Tracking App" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = BBDE01462E94820E00753D3E /* Resources */;
-			membershipExceptions = (
-				CMU_Softball_Pitch_Tracking_App.entitlements,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BBDE014A2E94820E00753D3E /* CMU Softball Pitch Tracking App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				BB758D712E988F2D0000BDC6 /* Exceptions for "CMU Softball Pitch Tracking App" folder in "CMU Softball Pitch Tracking App" target */,
-				BB758D722E9890AD0000BDC6 /* Exceptions for "CMU Softball Pitch Tracking App" folder in "Copy Bundle Resources" phase from "CMU Softball Pitch Tracking App" target */,
 			);
 			path = "CMU Softball Pitch Tracking App";
 			sourceTree = "<group>";
@@ -298,7 +288,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "CMU Softball Pitch Tracking App/CMU_Softball_Pitch_Tracking_App.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "CMU Softball Pitch Tracking App/CMU_Softball_Pitch_Tracking_App.entitlements.xml";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78WNZX87WC;
@@ -315,7 +305,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "adlewisCMU.CMU-Softball-Pitch-Tracking-App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.adlewis.cmuSoftballPitchTrackingApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -336,7 +326,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "CMU Softball Pitch Tracking App/CMU_Softball_Pitch_Tracking_App.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "CMU Softball Pitch Tracking App/CMU_Softball_Pitch_Tracking_App.entitlements.xml";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78WNZX87WC;
@@ -353,7 +343,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "adlewisCMU.CMU-Softball-Pitch-Tracking-App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.adlewis.cmuSoftballPitchTrackingApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

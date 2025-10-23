@@ -4,6 +4,12 @@ struct OutcomeInputView: View {
     @Binding var actualPitchZone: String?
     @Binding var actualBallsOffPlate: Int?
     @Binding var outcome: OutcomeSelection?
+    
+    let calledPitchZone: Int
+    let pitchType: String
+    let calledBallsOffPlate: Int
+    let pitchCount: String
+    let isNewBatter: Bool
 
     var onSubmit: () -> Void
 
@@ -78,7 +84,12 @@ struct OutcomeInputView: View {
                 NavigationLink(
                     destination: SwingResultView(
                         actualPitchZone: actualPitchZone ?? "",
-                        actualBallsOffPlate: actualBallsOffPlate ?? 0
+                        actualBallsOffPlate: actualBallsOffPlate ?? 0,
+                        calledPitchZone: calledPitchZone,
+                        pitchType: pitchType,
+                        calledBallsOffPlate: calledBallsOffPlate,
+                        pitchCount: pitchCount,
+                        isNewBatter: isNewBatter
                     ),
                     isActive: $navigateToSwingResult,
                     label: { EmptyView() }
@@ -86,7 +97,12 @@ struct OutcomeInputView: View {
                 NavigationLink(
                     destination: NoSwingResultView(
                         actualPitchZone: actualPitchZone ?? "",
-                        actualBallsOffPlate: actualBallsOffPlate ?? 0
+                        actualBallsOffPlate: actualBallsOffPlate ?? 0,
+                        calledPitchZone: calledPitchZone,
+                        pitchType: pitchType,
+                        calledBallsOffPlate: calledBallsOffPlate,
+                        pitchCount: pitchCount,
+                        isNewBatter: isNewBatter
                     ),
                     isActive: $navigateToNoSwingResult,
                     label: { EmptyView() }

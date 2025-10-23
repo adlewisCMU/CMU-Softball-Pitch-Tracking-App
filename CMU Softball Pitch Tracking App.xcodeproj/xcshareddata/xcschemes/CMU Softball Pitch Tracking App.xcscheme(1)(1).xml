@@ -29,6 +29,30 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BBDE01582E94820F00753D3E"
+               BuildableName = "CMU Softball Pitch Tracking AppTests.xctest"
+               BlueprintName = "CMU Softball Pitch Tracking AppTests"
+               ReferencedContainer = "container:CMU Softball Pitch Tracking App.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BBDE01622E94820F00753D3E"
+               BuildableName = "CMU Softball Pitch Tracking AppUITests.xctest"
+               BlueprintName = "CMU Softball Pitch Tracking AppUITests"
+               ReferencedContainer = "container:CMU Softball Pitch Tracking App.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

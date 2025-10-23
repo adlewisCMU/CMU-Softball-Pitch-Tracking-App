@@ -50,21 +50,13 @@ struct NoSwingResultView: View {
         let outcome = resultType.outcome
 
         session.addPitch(
+            resultType: resultType,
             pitcher: session.pitcherName,
-            pitchCount: pitchCount,
             calledPitchZone: calledPitchZone,
             pitchType: pitchType,
             calledBallsOffPlate: calledBallsOffPlate,
             actualPitchZone: actualPitchZone,
-            actualBallsOffPlate: actualBallsOffPlate,
-            isStrike: outcome.isStrike,
-            isHBP: outcome.isHBP,
-            didSwing: outcome.didSwing,
-            madeContact: outcome.madeContact,
-            isHit: outcome.isHit,
-            isOut: outcome.isOut,
-            isError: outcome.isError,
-            newBatter: isNewBatter
+            actualBallsOffPlate: actualBallsOffPlate
         )
 
         dismiss()
