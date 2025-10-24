@@ -5,7 +5,6 @@ struct PitchTrackingView: View {
 
     @State private var path = NavigationPath()
 
-    // Pitch input states
     @State private var calledPitchZone: Int?
     @State private var pitchType: String = "Fastball"
     @State private var calledBallsOffPlate: Int?
@@ -16,7 +15,6 @@ struct PitchTrackingView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            // First screen: CallInputView
             CallInputView(
                 calledPitchZone: $calledPitchZone,
                 pitchType: $pitchType,
