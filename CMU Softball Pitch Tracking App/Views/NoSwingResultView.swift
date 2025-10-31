@@ -11,6 +11,8 @@ struct NoSwingResultView: View {
     let calledBallsOffPlate: Int
     let pitchCount: String
     let isNewBatter: Bool
+    
+    let onDone: () -> Void
 
     var body: some View {
         VStack(spacing: 24) {
@@ -47,7 +49,6 @@ struct NoSwingResultView: View {
 
     func handleNoSwingResult(_ result: String) {
         let resultType: PitchResultType = (result == "Strike") ? .noSwingStrike : .noSwingBall
-        let outcome = resultType.outcome
 
         session.addPitch(
             resultType: resultType,
@@ -59,6 +60,6 @@ struct NoSwingResultView: View {
             actualBallsOffPlate: actualBallsOffPlate
         )
 
-        dismiss()
+        onDone()
     }
 }

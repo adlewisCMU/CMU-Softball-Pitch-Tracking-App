@@ -1,9 +1,8 @@
 import SwiftUI
 
 struct SwingResultView: View {
-    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var session: Session
-
+    
     let actualPitchZone: String
     let actualBallsOffPlate: Int
     let calledPitchZone: Int
@@ -13,6 +12,8 @@ struct SwingResultView: View {
     let isNewBatter: Bool
 
     let swingResults = ["Strike", "Foul", "Hit", "Out", "Error"]
+    
+    let onDone: () -> Void
 
     var body: some View {
         VStack(spacing: 24) {
@@ -42,15 +43,13 @@ struct SwingResultView: View {
         let resultType: PitchResultType
 
         switch result {
-            case "Strike": resultType = .swingStrike
-            case "Foul":   resultType = .swingFoul
-            case "Hit":    resultType = .swingHit
-            case "Out":    resultType = .swingOut
-            case "Error":  resultType = .swingError
-            default:       return
+        case "Strike": resultType = .swingStrike
+        case "Foul":   resultType = .swingFoul
+        case "Hit":    resultType = .swingHit
+        case "Out":    resultType = .swingOut
+        case "Error":  resultType = .swingError
+        default:       return
         }
-
-        let outcome = resultType.outcome
 
         session.addPitch(
             resultType: resultType,
@@ -62,6 +61,6 @@ struct SwingResultView: View {
             actualBallsOffPlate: actualBallsOffPlate
         )
 
-        dismiss()
+        onDone()
     }
 }

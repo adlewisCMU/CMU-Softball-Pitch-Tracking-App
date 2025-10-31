@@ -1,7 +1,7 @@
 import Foundation
 
 struct Pitch: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     
     // pitch identifiers
     var pitchNum: Int

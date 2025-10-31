@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PitchTrackingView: View {
-    @ObservedObject var session: Session
+    @EnvironmentObject var session: Session
 
     @State private var path = NavigationPath()
 
@@ -23,15 +23,7 @@ struct PitchTrackingView: View {
                 onSubmit: {
                     path.append(Screen.outcome)
                 },
-                onEndSession: {
-                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                        if let viewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
-                            session.exportCSV(from: viewController)
-                            session.reset()
-                            path = NavigationPath()
-                        }
-                    }
-                }
+                onEndSession: handleEndSession
             )
             .navigationDestination(for: Screen.self) { screen in
                 switch screen {
@@ -55,7 +47,11 @@ struct PitchTrackingView: View {
                         pitchType: pitchType,
                         calledBallsOffPlate: calledBallsOffPlate ?? 0,
                         pitchCount: session.currentPitchCountString(),
-                        isNewBatter: false
+                        isNewBatter: false,
+                        onDone: {
+                            resetPitchInput()
+                            path = NavigationPath()
+                        }
                     )
                 case .noSwingResult:
                     NoSwingResultView(
@@ -65,13 +61,17 @@ struct PitchTrackingView: View {
                         pitchType: pitchType,
                         calledBallsOffPlate: calledBallsOffPlate ?? 0,
                         pitchCount: session.currentPitchCountString(),
-                        isNewBatter: false
+                        isNewBatter: false,
+                        onDone: {
+                            resetPitchInput()
+                            path = NavigationPath()
+                        }
                     )
                 }
             }
-            .environmentObject(session)
             .onAppear {
                 resetPitchInput()
+                path = NavigationPath()
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -96,10 +96,9 @@ struct PitchTrackingView: View {
                 actualBallsOffPlate: actualBallsOffPlate ?? 0
             )
             resetPitchInput()
-            path = NavigationPath() // Return to CallInputView
+            path = NavigationPath()
         }
     }
-
 
     private func resetPitchInput() {
         calledPitchZone = nil
@@ -108,6 +107,16 @@ struct PitchTrackingView: View {
         actualPitchZone = nil
         actualBallsOffPlate = nil
         outcome = nil
+    }
+    
+    private func handleEndSession() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let viewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+                session.exportCSV(from: viewController, opponentName: session.opponentName)
+        }
+        session.reset()
+        path = NavigationPath()
+        resetPitchInput()
     }
 
     enum Screen: Hashable {

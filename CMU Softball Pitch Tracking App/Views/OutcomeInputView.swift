@@ -4,7 +4,7 @@ struct OutcomeInputView: View {
     @Binding var actualPitchZone: String?
     @Binding var actualBallsOffPlate: Int?
     @Binding var outcome: OutcomeSelection?
-    
+
     let calledPitchZone: Int
     let pitchType: String
     let calledBallsOffPlate: Int
@@ -12,10 +12,8 @@ struct OutcomeInputView: View {
     let isNewBatter: Bool
 
     var onSubmit: () -> Void
-
+    
     @State private var showValidationAlert = false
-    @State private var navigateToSwingResult = false
-    @State private var navigateToNoSwingResult = false
 
     var body: some View {
         HStack(spacing: 40) {
@@ -49,9 +47,9 @@ struct OutcomeInputView: View {
                         if isValid() {
                             switch outcome {
                             case .swing:
-                                navigateToSwingResult = true
+                                onSubmit()
                             case .noSwing:
-                                navigateToNoSwingResult = true
+                                onSubmit()
                             case .hbp:
                                 onSubmit()
                             case .none:
@@ -79,36 +77,6 @@ struct OutcomeInputView: View {
         } message: {
             Text("Please complete all fields before submitting.")
         }
-        .background(
-            Group {
-                NavigationLink(
-                    destination: SwingResultView(
-                        actualPitchZone: actualPitchZone ?? "",
-                        actualBallsOffPlate: actualBallsOffPlate ?? 0,
-                        calledPitchZone: calledPitchZone,
-                        pitchType: pitchType,
-                        calledBallsOffPlate: calledBallsOffPlate,
-                        pitchCount: pitchCount,
-                        isNewBatter: isNewBatter
-                    ),
-                    isActive: $navigateToSwingResult,
-                    label: { EmptyView() }
-                )
-                NavigationLink(
-                    destination: NoSwingResultView(
-                        actualPitchZone: actualPitchZone ?? "",
-                        actualBallsOffPlate: actualBallsOffPlate ?? 0,
-                        calledPitchZone: calledPitchZone,
-                        pitchType: pitchType,
-                        calledBallsOffPlate: calledBallsOffPlate,
-                        pitchCount: pitchCount,
-                        isNewBatter: isNewBatter
-                    ),
-                    isActive: $navigateToNoSwingResult,
-                    label: { EmptyView() }
-                )
-            }
-        )
     }
 
     private func isValid() -> Bool {

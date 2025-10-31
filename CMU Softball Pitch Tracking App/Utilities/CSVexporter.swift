@@ -5,11 +5,15 @@ func generateTimestampedCSVFileName(opponentName: String?, prefix: String = "pit
     formatter.dateFormat = "yyyy-MM-dd_HH-mm"
     let timestamp = formatter.string(from: Date())
 
-    let sanitizedOpponent = (opponentName ?? "opponent")
+    let sanitizedOpponent = (opponentName?.isEmpty == false ? opponentName! : "practice")
         .replacingOccurrences(of: " ", with: "-")
         .lowercased()
 
-    return "\(prefix)_vs_\(sanitizedOpponent)_\(timestamp).csv"
+    if let opponentName = opponentName, !opponentName.isEmpty {
+        return "\(prefix)_vs_\(sanitizedOpponent)_\(timestamp).csv"
+    } else {
+        return "\(prefix)_\(sanitizedOpponent)_\(timestamp).csv"
+    }
 }
 
 func saveCSVToTempFile(csvString: String, fileName: String? = nil, opponentName: String? = nil) -> URL? {

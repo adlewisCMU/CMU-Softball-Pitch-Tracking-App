@@ -8,6 +8,7 @@ struct CMU_Softball_Pitch_Tracking_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(session)
         }
     }
 }

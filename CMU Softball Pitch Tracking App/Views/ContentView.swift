@@ -1,9 +1,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var session = Session()
-    
+    @State private var sessionStarted = false
+    @EnvironmentObject var session: Session
+
     var body: some View {
-        PitchTrackingView(session: session)
+        if sessionStarted {
+            PitchTrackingView()
+        } else {
+            StartSessionView(onStart: {
+                sessionStarted = true
+            })
+        }
     }
 }
