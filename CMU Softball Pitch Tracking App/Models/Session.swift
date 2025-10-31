@@ -6,8 +6,8 @@ class Session: ObservableObject {
     @Published private(set) var pitches: [Pitch] = []
     @Published var pitcherName: String = ""
     @Published var opponentName: String = "Practice"
-    private var overallPitchNum = 0
-    private var batterNum = 0
+    @Published var overallPitchNum = 0
+    @Published var batterNum = 0
     private var pitcherStats: [String: (pitchCount: Int, batterCount: Int)] = [:]
 
     private var currentStrikes = 0
@@ -24,6 +24,7 @@ class Session: ObservableObject {
     ) {
         let outcome = resultType.outcome
         updatePitchCount(from: resultType)
+        let isStrikeout = currentStrikes >= 3 && outcome.isStrike
         let pitchCount = currentPitchCountString()
         let newBatter = shouldResetCount(from: resultType)
 
@@ -32,7 +33,6 @@ class Session: ObservableObject {
             batterNum += 1
         }
 
-        // Track pitch and batter numbers for pitcher
         overallPitchNum += 1
         var pitcherPitchNum = 1
         var pitcherBatterNum = newBatter ? 1 : 0
@@ -66,7 +66,7 @@ class Session: ObservableObject {
             didSwing: outcome.didSwing,
             madeContact: outcome.madeContact,
             isHit: outcome.isHit,
-            isOut: outcome.isOut,
+            isOut: outcome.isOut || isStrikeout,
             isError: outcome.isError
         )
 
@@ -103,7 +103,7 @@ class Session: ObservableObject {
     private func updatePitchCount(from resultType: PitchResultType) {
         switch resultType {
         case .swingStrike, .noSwingStrike:
-            if currentStrikes < 2 {
+            if currentStrikes < 3 {
                 currentStrikes += 1
             }
         case .swingFoul:
