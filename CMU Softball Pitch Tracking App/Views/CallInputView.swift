@@ -14,6 +14,11 @@ struct CallInputView: View {
     @State private var showValidationAlert = false
     @State private var showExitAlert = false
 
+    // variables for pitcher change
+    @State private var showChangePitcherConfirm = false
+    @State private var showChangePitcherSheet = false
+    @State private var newPitcherName = ""
+
     var body: some View {
         HStack(spacing: 40) {
             // Left: Strike Zone
@@ -43,6 +48,24 @@ struct CallInputView: View {
 
                 Spacer()
 
+                Button(action: {
+                    showChangePitcherConfirm = true
+                }) {
+                    Text("Change Pitcher")
+                        .font(.body)
+                        .padding()
+                        .background(Color.blue.opacity(0.15))
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                }
+                .confirmationDialog("Change Pitcher?", isPresented: $showChangePitcherConfirm) {
+                    Button("Yes, Change Pitcher") {
+                        newPitcherName = ""
+                        showChangePitcherSheet = true
+                    }
+                    Button("Cancel", role: .cancel) {}
+                }
+
                 HStack {
                     Spacer()
                     Button(action: {
@@ -64,7 +87,6 @@ struct CallInputView: View {
                 }
             }
 
-            // Bottom-left: End Session Button
             Button(action: {
                 showExitAlert = true
             }) {
@@ -93,6 +115,37 @@ struct CallInputView: View {
             Button("OK", role: .cancel) { }
         } message: {
             Text("Please select a pitch zone, pitch type, and balls off plate value.")
+        }
+
+        .sheet(isPresented: $showChangePitcherSheet) {
+            VStack(spacing: 20) {
+                Text("New Pitcher Name")
+                    .font(.title2.bold())
+
+                TextField("Enter new pitcher name", text: $newPitcherName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+
+                HStack {
+                    Button("Cancel") {
+                        showChangePitcherSheet = false
+                    }
+
+                    Spacer()
+
+                    Button("Confirm") {
+                        let trimmed = newPitcherName.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if !trimmed.isEmpty {
+                            session.changePitcher(to: trimmed)
+                            showChangePitcherSheet = false
+                        }
+                    }
+                    .disabled(newPitcherName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }
+                .padding(.horizontal)
+            }
+            .padding()
+            .presentationDetents([.height(260)])
         }
     }
 

@@ -9,6 +9,9 @@ class Session: ObservableObject {
     @Published var overallPitchNum = 0
     @Published var batterNum = 0
     private var pitcherStats: [String: (pitchCount: Int, batterCount: Int)] = [:]
+    var currentPitcherStats: (pitchCount: Int, batterCount: Int) {
+        pitcherStats[pitcherName] ?? (0, 0)
+    }
 
     private var currentStrikes = 0
     private var currentBalls = 0
@@ -84,6 +87,11 @@ class Session: ObservableObject {
         self.pitcherName = pitcher
         self.opponentName = opponent?.isEmpty == false ? opponent! : "Practice"
         reset()
+    }
+    
+    func changePitcher(to newPitcher: String) {
+        self.pitcherName = newPitcher
+        pitcherStats[newPitcher] = (pitchCount: 0, batterCount: 0)
     }
 
     func exportCSV(from viewController: UIViewController, opponentName: String? = nil) {

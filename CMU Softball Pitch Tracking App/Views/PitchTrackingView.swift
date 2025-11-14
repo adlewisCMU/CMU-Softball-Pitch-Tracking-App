@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PitchTrackingView: View {
     @EnvironmentObject var session: Session
+    @Binding var sessionActive: Bool
 
     @State private var path = NavigationPath()
 
@@ -119,6 +120,7 @@ struct PitchTrackingView: View {
         session.reset()
         path = NavigationPath()
         resetPitchInput()
+        sessionActive = false
     }
 
     enum Screen: Hashable {

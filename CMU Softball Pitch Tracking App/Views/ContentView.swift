@@ -6,11 +6,13 @@ struct ContentView: View {
 
     var body: some View {
         if sessionStarted {
-            PitchTrackingView()
+            PitchTrackingView(sessionActive: $sessionStarted)
+                .environmentObject(session)
         } else {
             StartSessionView(onStart: {
                 sessionStarted = true
             })
+            .environmentObject(session)
         }
     }
 }
