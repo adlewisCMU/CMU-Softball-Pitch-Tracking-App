@@ -9,10 +9,6 @@ struct StatsBox: View {
                 .font(.headline)
                 .foregroundColor(.white)
             
-            Text("Game Pitch Total: \(session.pitches.count)")
-                .font(.subheadline)
-                .foregroundColor(.white)
-            
             Text("Pitcher's Total Pitches: \(session.currentPitcherStats.pitchCount)")
                 .font(.subheadline)
                 .foregroundColor(.white)

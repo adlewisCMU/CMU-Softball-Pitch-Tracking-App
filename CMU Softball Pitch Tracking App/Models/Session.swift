@@ -8,6 +8,11 @@ class Session: ObservableObject {
     @Published var opponentName: String = "Practice"
     @Published var overallPitchNum = 0
     @Published var batterNum = 0
+    
+    @Published private(set) var inning: String = "1.0"
+    private var inningNumber: Int = 1
+    private var outs: Int = 0
+
     private var pitcherStats: [String: (pitchCount: Int, batterCount: Int)] = [:]
     var currentPitcherStats: (pitchCount: Int, batterCount: Int) {
         pitcherStats[pitcherName] ?? (0, 0)
@@ -27,9 +32,16 @@ class Session: ObservableObject {
     ) {
         let outcome = resultType.outcome
         updatePitchCount(from: resultType)
+
         let isStrikeout = currentStrikes >= 3 && outcome.isStrike
+        let isRecordedOut = outcome.isOut || isStrikeout
+
         let pitchCount = currentPitchCountString()
         let newBatter = shouldResetCount(from: resultType)
+
+        if isRecordedOut {
+            advanceOuts()
+        }
 
         if newBatter {
             resetPitchCount()
@@ -58,6 +70,7 @@ class Session: ObservableObject {
             pitcherPitchNum: pitcherPitchNum,
             batterNum: batterNum,
             pitcherBatterNum: pitcherBatterNum,
+            inning: inning,
             pitchCount: pitchCount,
             calledPitchZone: calledPitchZone,
             pitchType: pitchType,
@@ -69,11 +82,24 @@ class Session: ObservableObject {
             didSwing: outcome.didSwing,
             madeContact: outcome.madeContact,
             isHit: outcome.isHit,
-            isOut: outcome.isOut || isStrikeout,
+            isOut: isRecordedOut,
             isError: outcome.isError
         )
 
         pitches.append(pitch)
+    }
+
+    private func advanceOuts() {
+        outs += 1
+        if outs >= 3 {
+            inningNumber += 1
+            outs = 0
+        }
+        updateInningString()
+    }
+
+    private func updateInningString() {
+        inning = "\(inningNumber).\(outs)"
     }
 
     func reset() {
@@ -81,6 +107,12 @@ class Session: ObservableObject {
         overallPitchNum = 0
         batterNum = 0
         pitcherStats.removeAll()
+        inningNumber = 1
+        outs = 0
+        inning = "1.0"
+        
+        currentBalls = 0
+        currentStrikes = 0
     }
 
     func startSession(pitcher: String, opponent: String?) {
@@ -92,11 +124,6 @@ class Session: ObservableObject {
     func changePitcher(to newPitcher: String) {
         self.pitcherName = newPitcher
         pitcherStats[newPitcher] = (pitchCount: 0, batterCount: 0)
-    }
-
-    func exportCSV(from viewController: UIViewController, opponentName: String? = nil) {
-        let csv = generateCSV()
-        shareCSVFile(from: viewController, csvString: csv, opponentName: opponentName)
     }
 
     func currentPitchCountString() -> String {
@@ -111,17 +138,12 @@ class Session: ObservableObject {
     private func updatePitchCount(from resultType: PitchResultType) {
         switch resultType {
         case .swingStrike, .noSwingStrike:
-            if currentStrikes < 3 {
-                currentStrikes += 1
-            }
+            if currentStrikes < 3 { currentStrikes += 1 }
         case .swingFoul:
-            if currentStrikes < 2 {
-                currentStrikes += 1
-            }
+            if currentStrikes < 2 { currentStrikes += 1 }
         case .noSwingBall:
             currentBalls += 1
-        default:
-            break
+        default: break
         }
     }
 
@@ -138,11 +160,17 @@ class Session: ObservableObject {
         }
     }
 
+    func exportCSV(from viewController: UIViewController, opponentName: String? = nil) {
+        let csv = generateCSV()
+        shareCSVFile(from: viewController, csvString: csv, opponentName: opponentName)
+    }
+
     private func generateCSV() -> String {
         var rows: [String] = []
+        
         let header = [
             "pitchNum", "pitcher", "pitcherPitchNum", "batterNum", "pitcherBatterNum",
-            "pitchCount", "calledPitchZone", "pitchType", "calledBallsOffPlate",
+            "inning", "pitchCount", "calledPitchZone", "pitchType", "calledBallsOffPlate",
             "actualPitchZone", "actualBallsOffPlate",
             "isStrike", "isHBP", "didSwing", "madeContact", "isHit", "isOut", "isError"
         ]
@@ -155,6 +183,7 @@ class Session: ObservableObject {
                 String(pitch.pitcherPitchNum),
                 String(pitch.batterNum),
                 String(pitch.pitcherBatterNum),
+                pitch.inning,
                 pitch.pitchCount,
                 String(pitch.calledPitchZone),
                 pitch.pitchType,

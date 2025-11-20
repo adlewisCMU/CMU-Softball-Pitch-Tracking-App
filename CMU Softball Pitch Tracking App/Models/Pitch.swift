@@ -12,6 +12,7 @@ struct Pitch: Identifiable, Codable {
 
     // extra details
     var pitchCount: String  // Example: "3-2", "0-0"
+    var inning: String  // format: "inning number"."out number", Example: "2.1" for 2nd inning with 1 out
     
     // coach's call
     var calledPitchZone: Int  // 1-4
