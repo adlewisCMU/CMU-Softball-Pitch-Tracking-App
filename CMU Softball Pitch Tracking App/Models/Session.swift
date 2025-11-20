@@ -98,6 +98,10 @@ class Session: ObservableObject {
         updateInningString()
     }
 
+    func addManualOut() {
+        advanceOuts()
+    }
+
     private func updateInningString() {
         inning = "\(inningNumber).\(outs)"
     }

@@ -14,14 +14,12 @@ struct CallInputView: View {
     @State private var showValidationAlert = false
     @State private var showExitAlert = false
 
-    // variables for pitcher change
     @State private var showChangePitcherConfirm = false
     @State private var showChangePitcherSheet = false
     @State private var newPitcherName = ""
 
     var body: some View {
         HStack(spacing: 40) {
-            // Left: Strike Zone
             VStack {
                 Text("Called Pitch Zone")
                     .font(.headline)
