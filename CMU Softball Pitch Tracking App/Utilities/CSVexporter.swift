@@ -8,6 +8,9 @@ func generateTimestampedCSVFileName(opponentName: String?, prefix: String = "pit
     let sanitizedOpponent = (opponentName?.isEmpty == false ? opponentName! : "practice")
         .replacingOccurrences(of: " ", with: "-")
         .lowercased()
+    
+    print("Opponent Name: \(opponentName ?? "nil")")
+    print("Sanitized Opponent: \(sanitizedOpponent)")
 
     if let opponentName = opponentName, !opponentName.isEmpty {
         return "\(prefix)_vs_\(sanitizedOpponent)_\(timestamp).csv"

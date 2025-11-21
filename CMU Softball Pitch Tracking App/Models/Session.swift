@@ -12,6 +12,9 @@ class Session: ObservableObject {
     @Published private(set) var inning: String = "1.0"
     private var inningNumber: Int = 1
     private var outs: Int = 0
+    
+    private var inningPendingUpdate: Bool = false
+    private var outPendingUpdate: Bool = false
 
     private var pitcherStats: [String: (pitchCount: Int, batterCount: Int)] = [:]
     var currentPitcherStats: (pitchCount: Int, batterCount: Int) {
@@ -39,8 +42,9 @@ class Session: ObservableObject {
         let pitchCount = currentPitchCountString()
         let newBatter = shouldResetCount(from: resultType)
 
+        // Set flag for delayed out update
         if isRecordedOut {
-            advanceOuts()
+            outPendingUpdate = true
         }
 
         if newBatter {
@@ -70,8 +74,8 @@ class Session: ObservableObject {
             pitcherPitchNum: pitcherPitchNum,
             batterNum: batterNum,
             pitcherBatterNum: pitcherBatterNum,
-            inning: inning,
             pitchCount: pitchCount,
+            inning: inning,
             calledPitchZone: calledPitchZone,
             pitchType: pitchType,
             calledBallsOffPlate: calledBallsOffPlate,
@@ -87,19 +91,34 @@ class Session: ObservableObject {
         )
 
         pitches.append(pitch)
+
+        if outPendingUpdate {
+            advanceOuts()
+            outPendingUpdate = false
+        }
+
+        if inningPendingUpdate {
+            advanceInning()
+            inningPendingUpdate = false
+        }
     }
 
     private func advanceOuts() {
         outs += 1
         if outs >= 3 {
-            inningNumber += 1
+            inningPendingUpdate = true
             outs = 0
         }
         updateInningString()
     }
-
+    
     func addManualOut() {
         advanceOuts()
+    }
+
+    private func advanceInning() {
+        inningNumber += 1
+        updateInningString()
     }
 
     private func updateInningString() {
@@ -165,8 +184,9 @@ class Session: ObservableObject {
     }
 
     func exportCSV(from viewController: UIViewController, opponentName: String? = nil) {
+        let nameToUse = opponentName ?? self.opponentName
         let csv = generateCSV()
-        shareCSVFile(from: viewController, csvString: csv, opponentName: opponentName)
+        shareCSVFile(from: viewController, csvString: csv, opponentName: nameToUse)
     }
 
     private func generateCSV() -> String {
