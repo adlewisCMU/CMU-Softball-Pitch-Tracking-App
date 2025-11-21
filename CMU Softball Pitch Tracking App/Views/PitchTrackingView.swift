@@ -26,8 +26,6 @@ struct PitchTrackingView: View {
                 },
                 onEndSession: handleEndSession
             )
-            StatsBox(session: session)
-                .padding(.top, 16)
             .navigationDestination(for: Screen.self) { screen in
                 switch screen {
                 case .outcome:

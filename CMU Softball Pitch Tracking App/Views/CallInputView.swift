@@ -23,40 +23,42 @@ struct CallInputView: View {
     @State private var invalidBallsOffPlate = false
     
     var body: some View {
-        VStack {
-            // Main Content Section (Pitch Zone, Pitch Type, Balls Off Plate)
-            HStack(spacing: 40) {
+        GeometryReader { geometry in
+            ZStack {
+                // Main content (centered input form)
                 VStack {
-                    Text("Called Pitch Zone")
-                        .font(.headline)
-                    StrikeZoneSelector(selectedZone: $calledPitchZone)
-                        .border(invalidPitchZone ? Color.red : Color.clear, width: 2) // Highlight if invalid
-                }
-
-                VStack(spacing: 40) {
-                    VStack(alignment: .leading) {
-                        Text("Pitch Type")
-                            .font(.headline)
-                        Picker("Pitch Type", selection: $pitchType) {
-                            ForEach(pitchTypes, id: \.self) {
-                                Text($0)
-                            }
+                    // Centered input form with selectors and submit button
+                    VStack(spacing: 20) {
+                        // Called Pitch Zone
+                        VStack {
+                            Text("Called Pitch Zone")
+                                .font(.headline)
+                            StrikeZoneSelector(selectedZone: $calledPitchZone)
+                                .border(invalidPitchZone ? Color.red : Color.clear, width: 2) // Highlight if invalid
                         }
-                        .pickerStyle(.menu)
-                        .border(invalidPitchType ? Color.red : Color.clear, width: 2) // Highlight if invalid
-                    }
 
-                    VStack(alignment: .leading) {
-                        Text("Balls Off Plate")
-                            .font(.headline)
-                        BallsOffPlateSelector(selectedOffset: $calledBallsOffPlate)
-                            .border(invalidBallsOffPlate ? Color.red : Color.clear, width: 2) // Highlight if invalid
-                    }
+                        // Pitch Type
+                        VStack {
+                            Text("Pitch Type")
+                                .font(.headline)
+                            Picker("Pitch Type", selection: $pitchType) {
+                                ForEach(pitchTypes, id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            .border(invalidPitchType ? Color.red : Color.clear, width: 2) // Highlight if invalid
+                        }
 
-                    Spacer()
+                        // Balls Off Plate
+                        VStack {
+                            Text("Balls Off Plate")
+                                .font(.headline)
+                            BallsOffPlateSelector(selectedOffset: $calledBallsOffPlate)
+                                .border(invalidBallsOffPlate ? Color.red : Color.clear, width: 2) // Highlight if invalid
+                        }
 
-                    HStack {
-                        Spacer()
+                        // Submit Button
                         Button(action: {
                             if isValid() {
                                 onSubmit()
@@ -74,23 +76,94 @@ struct CallInputView: View {
                         }
                         .padding(.top, 20)
                     }
+                    .frame(maxWidth: .infinity) // Make sure the form is centered and flexible
+                    .padding(20) // Add padding to ensure the form has space around it
+                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.white).shadow(radius: 10)) // Optional styling
+                    .padding(.top, geometry.safeAreaInsets.top + 50) // Add space from the top of the screen
+                    .padding(.horizontal, 16) // Horizontal padding for consistency
+                }
+
+                // Top-left: Headline
+                VStack {
+                    HStack {
+                        Text("Call Pitch")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(.leading, 16)
+                        Spacer()
+                    }
+                    Spacer()
+                }
+
+                // Bottom-left: InningBox
+                VStack {
+                    Spacer()
+                    HStack {
+                        InningBox(session: session)
+                            .padding(.leading, 16) // Ensure it has proper space from the left
+                            .padding(.bottom, 20)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        StatsBox(session: session)  // This is the only stat box now
+                            .padding(.trailing, 16)
+                            .padding(.bottom, 20)
+                            .frame(maxWidth: .infinity) // Allow it to expand based on content size
+                    }
+                }
+
+                // Top-right: Toolbar (buttons for changing pitcher and exporting)
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            showChangePitcherConfirm = true
+                        }) {
+                            Text("Change Pitcher")
+                                .font(.body)
+                                .padding(8)
+                                .foregroundColor(.blue)
+                        }
+                        .confirmationDialog("Change Pitcher?", isPresented: $showChangePitcherConfirm) {
+                            Button("Yes, Change Pitcher") {
+                                newPitcherName = ""
+                                showChangePitcherSheet = true
+                            }
+                            Button("Cancel", role: .cancel) {}
+                        }
+
+                        Button(action: {
+                            showExitAlert = true
+                        }) {
+                            Text("Export & End")
+                                .font(.body)
+                                .padding(8)
+                                .foregroundColor(.red)
+                        }
+                        .alert("End Session?", isPresented: $showExitAlert) {
+                            Button("Export & End", role: .destructive) {
+                                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                                    if let viewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+                                        session.exportCSV(from: viewController)
+                                        session.reset()
+                                    }
+                                }
+                            }
+                            Button("Cancel", role: .cancel) { }
+                        }
+                    }
+                    .padding(.top, 16)
+                    .padding(.trailing, 16)
+                    Spacer()
                 }
             }
-            .padding()
-
-            Spacer() // This pushes the content upwards and ensures the InningBox is at the bottom
-            
-            // InningBox placed at the bottom-left of the screen
-            HStack {
-                InningBox(session: session)
-                    .frame(width: 180) // Adjust the width as needed
-                Spacer() // Pushes InningBox to the left
-            }
-            .padding(.leading, 16)
-            .padding(.bottom, 20) // Gives some space from the bottom edge
-
         }
-        .navigationTitle("Call Pitch")
+        .navigationBarHidden(true) // Hide default navigation bar if needed
         .alert("Missing Input", isPresented: $showValidationAlert) {
             Button("OK", role: .cancel) { }
         } message: {
@@ -125,45 +198,6 @@ struct CallInputView: View {
             }
             .padding()
             .presentationDetents([.height(260)])
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button(action: {
-                    showChangePitcherConfirm = true
-                }) {
-                    Text("Change Pitcher")
-                        .font(.body)
-                        .padding(8)
-                        .foregroundColor(.blue)
-                }
-                .confirmationDialog("Change Pitcher?", isPresented: $showChangePitcherConfirm) {
-                    Button("Yes, Change Pitcher") {
-                        newPitcherName = ""
-                        showChangePitcherSheet = true
-                    }
-                    Button("Cancel", role: .cancel) {}
-                }
-
-                Button(action: {
-                    showExitAlert = true
-                }) {
-                    Text("Export & End")
-                        .font(.body)
-                        .padding(8)
-                        .foregroundColor(.red)
-                }
-                .alert("End Session?", isPresented: $showExitAlert) {
-                    Button("Export & End", role: .destructive) {
-                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                            if let viewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
-                                session.exportCSV(from: viewController)
-                                session.reset()
-                            }
-                        }
-                    }
-                    Button("Cancel", role: .cancel) { }
-                }
-            }
         }
     }
 

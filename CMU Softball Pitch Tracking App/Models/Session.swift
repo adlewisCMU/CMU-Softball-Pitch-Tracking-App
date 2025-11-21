@@ -33,16 +33,14 @@ class Session: ObservableObject {
         actualPitchZone: String,
         actualBallsOffPlate: Int
     ) {
-        let outcome = resultType.outcome
+        let pitchCountAtTimeOfPitch = currentPitchCountString()
         updatePitchCount(from: resultType)
 
-        let isStrikeout = currentStrikes >= 3 && outcome.isStrike
-        let isRecordedOut = outcome.isOut || isStrikeout
+        let isStrikeout = currentStrikes >= 3 && resultType.outcome.isStrike
+        let isRecordedOut = resultType.outcome.isOut || isStrikeout
 
-        let pitchCount = currentPitchCountString()
         let newBatter = shouldResetCount(from: resultType)
 
-        // Set flag for delayed out update
         if isRecordedOut {
             outPendingUpdate = true
         }
@@ -74,20 +72,20 @@ class Session: ObservableObject {
             pitcherPitchNum: pitcherPitchNum,
             batterNum: batterNum,
             pitcherBatterNum: pitcherBatterNum,
-            pitchCount: pitchCount,
+            pitchCount: pitchCountAtTimeOfPitch,
             inning: inning,
             calledPitchZone: calledPitchZone,
             pitchType: pitchType,
             calledBallsOffPlate: calledBallsOffPlate,
             actualPitchZone: actualPitchZone,
             actualBallsOffPlate: actualBallsOffPlate,
-            isStrike: outcome.isStrike,
-            isHBP: outcome.isHBP,
-            didSwing: outcome.didSwing,
-            madeContact: outcome.madeContact,
-            isHit: outcome.isHit,
+            isStrike: resultType.outcome.isStrike,
+            isHBP: resultType.outcome.isHBP,
+            didSwing: resultType.outcome.didSwing,
+            madeContact: resultType.outcome.madeContact,
+            isHit: resultType.outcome.isHit,
             isOut: isRecordedOut,
-            isError: outcome.isError
+            isError: resultType.outcome.isError
         )
 
         pitches.append(pitch)
@@ -102,6 +100,7 @@ class Session: ObservableObject {
             inningPendingUpdate = false
         }
     }
+
 
     private func advanceOuts() {
         outs += 1
