@@ -107,6 +107,7 @@ class Session: ObservableObject {
         outs += 1
         if outs >= 3 {
             inningPendingUpdate = true
+            advanceInning()
             outs = 0
         }
         updateInningString()

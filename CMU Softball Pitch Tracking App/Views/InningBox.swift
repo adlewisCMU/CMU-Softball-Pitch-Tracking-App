@@ -5,7 +5,7 @@ struct InningBox: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Inning: \(session.inning)")
+            Text("Inning: \(session.inning.components(separatedBy: ".").first ?? "1")")
                 .font(.headline)
                 .foregroundColor(.white)
 
