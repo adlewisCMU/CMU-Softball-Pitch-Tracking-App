@@ -100,8 +100,8 @@ struct CallInputView: View {
                     Spacer()
                     HStack {
                         InningBox(session: session)
-                            .padding(.leading, 16) // Ensure it has proper space from the left
-                            .padding(.bottom, 20)
+                            .padding(.leading, 16)
+                            .padding(.bottom, 40)
                             .frame(maxWidth: .infinity)
                     }
                 }
