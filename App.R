@@ -1,22 +1,23 @@
 library(shiny)
 library(DT)
 library(stringr)
+library(dplyr)
 
-validate_csv = function(file_path) {
+validate_csv <- function(file_path) {
   
-  required_cols = c(
+  required_cols <- c(
     "pitchNum", "pitcher", "pitcherPitchNum", "batterNum", "pitcherBatterNum",
     "inning", "pitchCount", "calledPitchZone", "pitchType", "calledBallsOffPlate",
     "actualPitchZone", "actualBallsOffPlate",
     "isStrike", "isHBP", "didSwing", "madeContact", "isHit", "isOut", "isError"
   )
   
-  df = tryCatch(
+  df <- tryCatch(
     read.csv(file_path, stringsAsFactors = FALSE, fileEncoding = "UTF-8"),
     error = function(e) stop("Error reading CSV: ", e$message)
   )
   
-  missing_cols = setdiff(required_cols, colnames(df))
+  missing_cols <- setdiff(required_cols, colnames(df))
   if(length(missing_cols) > 0){
     stop(paste("CSV is missing required columns:", paste(missing_cols, collapse = ", ")))
   }
@@ -31,12 +32,13 @@ validate_csv = function(file_path) {
   return(df)
 }
 
-extract_metadata = function(filename) {
-  fname = basename(filename)
-  fname = str_remove(fname, "\\.csv$")
+extract_metadata <- function(filename) {
+  fname <- basename(filename)
+  fname <- str_remove(fname, "\\.csv$")
   
-  pattern_vs = "pitch_data_vs_(.*)_([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2})"
-  pattern_practice = "pitch_data_(practice)_([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2})"
+  pattern_vs <- "pitch_data_vs_(.*)_([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2})"
+  pattern_practice <- "pitch_data_practice_([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2})"
+  
   
   if(str_detect(fname, pattern_vs)){
     matches <- str_match(fname, pattern_vs)
@@ -73,12 +75,12 @@ ui <- fluidPage(
 )
 
 # --- Server ---
-server = function(input, output, session) {
+server <- function(input, output, session) {
   
-  data = reactive({
+  data <- reactive({
     req(input$file)
     tryCatch({
-      df = validate_csv(input$file$datapath)
+      df <- validate_csv(input$file$datapath)
       output$validation_message <- renderText("CSV validation successful.")
       return(df)
     }, error = function(e) {
@@ -102,52 +104,47 @@ server = function(input, output, session) {
     
     report_sections <- c()
     
+    pitchers <- unique(df$pitcher)
+    
     for (p in pitchers) {
       
+      # named sub for subset, in case this ever gets read
       sub <- df[df$pitcher == p, ]
       
       # ---------------------------------------------------------
       # GAME MANAGEMENT SECTION
       # ---------------------------------------------------------
-      
       sub$pitchCount <- as.character(sub$pitchCount)
       
-      # Batters faced
+      # Batters Faced
       batters_faced <- length(unique(sub$batterNum))
       
-      # At-bats (hits + outs)
+      # At-Bats
       at_bats <- sum(sub$isOut) + sum(sub$isHit)
       
-      # Total pitches
+      # Total Pitches
       total_pitches <- nrow(sub)
       
-      # Strikes / balls
+      # Strikes / Balls
       strikes <- sum(sub$isStrike)
-      balls <- total_pitches - strikes - sum(sub$isHBP)
+      balls <- sum(!sub$isStrike & !sub$isHBP)
       
       # First pitch strikes / balls
-      library(dplyr)
       first_pitches <- sub %>%
         group_by(batterNum) %>%
         slice(1) %>%
         ungroup()
       
       first_pitch_strikes <- sum(first_pitches$isStrike)
-      first_pitch_balls   <- nrow(first_pitches) - first_pitch_strikes
+      first_pitch_balls <- sum(!first_pitches$isStrike & !first_pitches$isHBP)
       
-      # Walks and strikeouts derived from pitchCount
-      walks <- sum(startsWith(sub$pitchCount, "4"))
-      strikeouts <- sum(endsWith(sub$pitchCount, "3"))
+      # Walks / Strikeouts
+      walks <- sum(startsWith(sub$pitchCount, "3") & (!sub$isStrike & !sub$isHBP))
+      strikeouts <- sum(
+        endsWith(sub$pitchCount, "2") & sub$isStrike & !sub$madeContact
+      )
       hits <- sum(sub$isHit)
       hbp <- sum(sub$isHBP)
-      
-      # Convert inning.outs to innings pitched
-      convert_inning <- function(x) {
-        parts <- strsplit(x, "\\.")[[1]]
-        inning <- as.numeric(parts[1])
-        outs <- as.numeric(parts[2])
-        inning + outs / 3
-      }
       
       # Determine total innings pitched
       last_inning <- max(as.numeric(gsub("\\..*$", "", sub$inning)))
@@ -226,6 +223,65 @@ server = function(input, output, session) {
       )
       
       # ---------------------------------------------------------
+      # INNING PERFORMANCE TABLE
+      # ---------------------------------------------------------
+      
+      sub <- sub %>%
+        mutate(
+          inning_num = as.numeric(gsub("\\..*", "", inning)),
+          outs_in_state = as.numeric(gsub(".*\\.", "", inning))
+        )
+      
+      innings <- sort(unique(sub$inning_num))
+      
+      lead_off_outs <- c()
+      one_two_three <- c()
+      
+      for (inn in innings) {
+        
+        inning_data <- sub[sub$inning_num == inn, ]
+        
+        # Lead-off Out
+        first_batter <- min(inning_data$batterNum)
+        first_batter_data <- inning_data[inning_data$batterNum == first_batter, ]
+        
+        lead_off_out <- any(first_batter_data$isOut)
+        lead_off_outs <- c(lead_off_outs, ifelse(lead_off_out, "Y", "N"))
+        
+        # 1-2-3 Inning
+        outs_recorded <- sum(inning_data$isOut)
+        
+        hits <- sum(inning_data$isHit)
+        hbps <- sum(inning_data$isHBP)
+        errors <- sum(inning_data$isError)
+        walks <- sum(startsWith(inning_data$pitchCount, "4"))  # with your existing definition
+        
+        no_baserunners <- (hits + walks + hbps + errors) == 0
+        
+        one_two_three_result <- (outs_recorded == 3 && no_baserunners)
+        one_two_three <- c(one_two_three, ifelse(one_two_three_result, "Y", "N"))
+      }
+      
+      lead_off_total <- sum(lead_off_outs == "Y")
+      one_two_three_total <- sum(one_two_three == "Y")
+      
+      inning_headers <- c(paste0("Inning ", innings), "Total")
+      
+      lead_off_row <- c(lead_off_outs, lead_off_total)
+      one_two_three_row <- c(one_two_three, one_two_three_total)
+      
+      inning_table <- paste(
+        "Inning Performance:\n",
+        paste(c("", inning_headers), collapse = "\t"),
+        "\n",
+        paste(c("Lead-off Out", lead_off_row), collapse = "\t"),
+        "\n",
+        paste(c("1-2-3 Inning", one_two_three_row), collapse = "\t"),
+        "\n\n",
+        sep = ""
+      )
+      
+      # ---------------------------------------------------------
       # FINAL SECTION ASSEMBLY
       # ---------------------------------------------------------
       
@@ -236,7 +292,8 @@ server = function(input, output, session) {
         "Opponent: ", opponent, "\n",
         "-----------------------------------------\n\n",
         game_mgmt,
-        pitcher_count_section
+        pitcher_count_section,
+        inning_table
       )
       
       report_sections <- c(report_sections, section)
@@ -247,3 +304,4 @@ server = function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
