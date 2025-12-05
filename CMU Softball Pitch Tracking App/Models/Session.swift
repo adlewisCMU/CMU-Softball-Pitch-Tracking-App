@@ -7,7 +7,7 @@ class Session: ObservableObject {
     @Published var pitcherName: String = ""
     @Published var opponentName: String = "Practice"
     @Published var overallPitchNum = 0
-    @Published var batterNum = 0
+    @Published var batterNum = 1
     
     @Published private(set) var inning: String = "1.0"
     private var inningNumber: Int = 1
@@ -39,7 +39,7 @@ class Session: ObservableObject {
         let isStrikeout = currentStrikes >= 3 && resultType.outcome.isStrike
         let isRecordedOut = resultType.outcome.isOut || isStrikeout
 
-        let newBatter = shouldResetCount(from: resultType)
+        let newBatter = shouldStartNewBatter(from: resultType)
 
         if isRecordedOut {
             outPendingUpdate = true
@@ -48,22 +48,26 @@ class Session: ObservableObject {
         if newBatter {
             resetPitchCount()
             batterNum += 1
+
+            if var stats = pitcherStats[pitcher] {
+                stats.batterCount += 1
+                pitcherStats[pitcher] = stats
+            } else {
+                pitcherStats[pitcher] = (pitchCount: 0, batterCount: 1)
+            }
         }
 
         overallPitchNum += 1
         var pitcherPitchNum = 1
-        var pitcherBatterNum = newBatter ? 1 : 0
+        var pitcherBatterNum = pitcherStats[pitcher]?.batterCount ?? 1
 
         if var stats = pitcherStats[pitcher] {
             stats.pitchCount += 1
-            if newBatter {
-                stats.batterCount += 1
-            }
             pitcherPitchNum = stats.pitchCount
             pitcherBatterNum = stats.batterCount
             pitcherStats[pitcher] = stats
         } else {
-            pitcherStats[pitcher] = (1, newBatter ? 1 : 0)
+            pitcherStats[pitcher] = (pitchCount: 1, batterCount: 1)
         }
 
         let pitch = Pitch(
@@ -126,25 +130,26 @@ class Session: ObservableObject {
     func reset() {
         pitches.removeAll()
         overallPitchNum = 0
-        batterNum = 0
+        batterNum = 1
         pitcherStats.removeAll()
         inningNumber = 1
         outs = 0
         inning = "1.0"
-        
         currentBalls = 0
         currentStrikes = 0
+        pitcherStats[pitcherName] = (pitchCount: 0, batterCount: 1)
     }
 
     func startSession(pitcher: String, opponent: String?) {
         self.pitcherName = pitcher
         self.opponentName = opponent?.isEmpty == false ? opponent! : "Practice"
+        
         reset()
     }
     
     func changePitcher(to newPitcher: String) {
         self.pitcherName = newPitcher
-        pitcherStats[newPitcher] = (pitchCount: 0, batterCount: 0)
+        pitcherStats[newPitcher] = (pitchCount: 0, batterCount: 1)
     }
 
     func currentPitchCountString() -> String {
@@ -168,7 +173,7 @@ class Session: ObservableObject {
         }
     }
 
-    private func shouldResetCount(from resultType: PitchResultType) -> Bool {
+    private func shouldStartNewBatter(from resultType: PitchResultType) -> Bool {
         switch resultType {
         case .hbp, .swingHit, .swingOut, .swingError:
             return true

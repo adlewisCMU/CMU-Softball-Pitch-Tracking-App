@@ -21,7 +21,7 @@ struct StartSessionView: View {
             }
 
             VStack(alignment: .leading) {
-                Text("Opponent Name (Optional)")
+                Text("Opponent Name")
                     .font(.headline)
                 TextField("Leave blank for Practice", text: $opponentName)
                     .textFieldStyle(.roundedBorder)
