@@ -24,9 +24,7 @@ validate_csv <- function(file_path) {
   
   bool_cols <- c("isStrike", "isHBP", "didSwing", "madeContact", "isHit", "isOut", "isError")
   for (col in bool_cols) {
-    if (is.logical(df[[col]])) {
-      df[[col]] <- as.integer(df[[col]])
-    }
+    df[[col]] <- as.integer(tolower(df[[col]]) %in% c("true","1"))
   }
   
   return(df)
@@ -211,7 +209,7 @@ server <- function(input, output, session) {
       }
       
       pitcher_count_section <- paste0(
-        "PITCHER'S COUNT:\n",
+        "Pitcher's Count:\n",
         "0-1 Count: ", count_0_1, "\t",
         "0-2 Count: ", count_0_2, "\t",
         "1-1 Count: ", count_1_1, "\t",
@@ -259,7 +257,7 @@ server <- function(input, output, session) {
         hits <- sum(inning_data$isHit)
         hbps <- sum(inning_data$isHBP)
         errors <- sum(inning_data$isError)
-        walks <- sum(startsWith(inning_data$pitchCount, "4"))  # with your existing definition
+        walks <- sum(startsWith(inning_data$pitchCount, "3") & inning_data$isStrike & !inning_data$madeContact)
         
         no_baserunners <- (hits + walks + hbps + errors) == 0
         
@@ -287,6 +285,44 @@ server <- function(input, output, session) {
       )
       
       # ---------------------------------------------------------
+      # MENTAL TOUGHNESS SECTION
+      # ---------------------------------------------------------
+      
+      batters <- sub %>%
+        group_by(batterNum) %>%
+        summarize(
+          hit = any(isHit == 1),
+          walk = any(startsWith(pitchCount, "3") & (!isStrike & !isHBP)),
+          error = any(isError == 1),
+          out = any(isOut == 1),
+          .groups = "drop"
+        ) %>%
+        arrange(batterNum)
+      
+      batters$next_out <- dplyr::lead(batters$out)
+      
+      after_hit_total <- sum(batters$hit)
+      after_hit_success <- sum(batters$hit & batters$next_out, na.rm = TRUE)
+      
+      after_walk_total <- sum(batters$walk)
+      after_walk_success <- sum(batters$walk & batters$next_out, na.rm = TRUE)
+      
+      after_error_total <- sum(batters$error)
+      after_error_success <- sum(batters$error & batters$next_out, na.rm = TRUE)
+      
+      four_pitch_walks <- sum(
+        sub$pitchCount == "3-0" & (!sub$isStrike & !sub$isHBP)
+      )
+      
+      mental_toughness <- paste0(
+        "Mental Toughness:\n",
+        "Retire Next Batter After Hit: ", after_hit_success, " / ", after_hit_total, "\n",
+        "Retire Next Batter After BB: ", after_walk_success, " / ", after_walk_total, "\n",
+        "Retire Next Batter After Error: ", after_error_success, " / ", after_error_total, "\n",
+        "4-Pitch Walks: ", four_pitch_walks, "\n\n"
+      )
+      
+      # ---------------------------------------------------------
       # FINAL SECTION ASSEMBLY
       # ---------------------------------------------------------
       
@@ -298,7 +334,8 @@ server <- function(input, output, session) {
         "-----------------------------------------\n\n",
         game_mgmt,
         pitcher_count_section,
-        inning_table
+        inning_table,
+        mental_toughness
       )
       
       report_sections <- c(report_sections, section)
